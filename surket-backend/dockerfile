@@ -1,0 +1,14 @@
+FROM alpine
+ENV DB_NAME surat_keterangan
+ENV DB_USER itzainab
+ENV DB_PASS admin-itzainab
+ENV DB_HOST db-suket
+ENV DB_PORT 5432
+ENV PORT 7600
+
+RUN apk add nodejs npm
+RUN npm config set unsafe-perm true
+RUN npm i -g nodemon && mkdir /app
+COPY package.json /app/package.json
+COPY . /app
+CMD [ "nodemon", "app/src/app.js" ]

@@ -1,0 +1,35 @@
+version: "3.4"
+
+services:
+  # adminer
+  adminer:
+    container_name: adminer-suket
+    image: adminer
+    restart: always
+    ports:
+      - 7700:8080
+
+  # database
+  db-suket:
+    container_name: db-suket
+    restart: always
+    build: ./database
+    volumes:
+      - ./database/db:/var/lib/postgresql/data
+    ports:
+      - 7701:5432
+
+  # service suket
+  suket:
+    container_name: suket
+    restart: always
+    depends_on:
+      - db-suket
+    volumes:
+      - ./surket-backend:/app
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    build: ./surket-backend/
+    working_dir: /app
+    ports:
+      - 7601:7600

@@ -1,0 +1,4 @@
+FROM postgres:alpine
+ENV POSTGRES_USER itzainab
+ENV POSTGRES_PASSWORD admin-itzainab
+ENV POSTGRES_DB surat_keterangan
